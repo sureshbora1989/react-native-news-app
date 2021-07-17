@@ -1,19 +1,36 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import HomeScreen from "../src/screens/HomeScreen";
+import NewsDetailsScreen from "./screens/NewsDetailsScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import ProfileScreen from "./screens/ProfileScreen";
+
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function App() {
   return (
-    <View style={styles.app}>
-      <Text>This is for React Native </Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          name="News Detais"
+          options={{ headerShown: true }}
+          component={bottomNavigation}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  app: {
-    marginHorizontal: "auto",
-    maxWidth: 500
-  }
-});
+const bottomNavigation = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="News" component={NewsDetailsScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
+    </Tab.Navigator>
+  );
+};
 
 export default App;
